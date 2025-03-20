@@ -1,19 +1,22 @@
 import { Text, View, Image, StyleSheet } from "react-native";
 import LoginButtonC from "@/components/LoginButtonC";
 import COLORS from "../theme";
+import { useRouter } from "expo-router";
 
 const index = () => {
+  const router = useRouter();
+
   return (
     <View
       style={{
         flex: 1,
         justifyContent: "flex-start",
         alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: COLORS.background,
       }}
     >
       <Image
-        source={require("../assets/images/seal.png")}
+        source={require("../assets/images/sealTransparent.png")}
         style={styles.logo}
       />
       <Text style={styles.title}>gesturo</Text>
@@ -21,7 +24,7 @@ const index = () => {
       <View style={styles.buttonContainer}>
         <LoginButtonC
           text="Get Started!"
-          onPress={() => console.log("getting started")}
+          onPress={() => router.push("/collectingInfo")}
         ></LoginButtonC>
         <View style={{ height: 10 }}></View>
         <LoginButtonC
@@ -45,6 +48,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     marginBottom: 20,
+    marginTop: 100,
   },
   title: {
     fontSize: 64,

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   secondaryButton: {
-    backgroundColor: "white",
+    backgroundColor: COLORS.background,
     borderWidth: 2,
     borderColor: COLORS.darkGray,
   },
