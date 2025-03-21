@@ -1,10 +1,10 @@
 import { Pressable, Text, StyleSheet, useWindowDimensions } from "react-native";
-import COLORS from "../theme";
+import COLORS from "../assets/data/theme";
 
 interface Props {
   text: string;
   onPress: () => void;
-  variant?: "primary" | "secondary"; // 👈 New prop
+  variant?: "primary" | "secondary";
 }
 
 const LoginButtonC = ({ text, onPress, variant = "primary" }: Props) => {
@@ -16,14 +16,11 @@ const LoginButtonC = ({ text, onPress, variant = "primary" }: Props) => {
       style={({ pressed }) => [
         styles.button,
         { width: width * 0.88, opacity: pressed ? 0.7 : 1 },
-        variant === "secondary" && styles.secondaryButton, // 👈 Apply different styles
+        variant === "secondary" && styles.secondaryButton,
       ]}
     >
       <Text
-        style={[
-          styles.text,
-          variant === "secondary" && styles.secondaryText, // 👈 Different text color
-        ]}
+        style={[styles.text, variant === "secondary" && styles.secondaryText]}
       >
         {text}
       </Text>

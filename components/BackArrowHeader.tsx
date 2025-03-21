@@ -7,16 +7,41 @@ import {
   Pressable,
   Text,
 } from "react-native";
-import COLORS from "@/theme";
+import COLORS from "@/assets/data/theme";
 import { useState } from "react";
 import { Link, router } from "expo-router";
+import Table from "./Table";
+import {
+  whyStudyingData,
+  minuteGoalData,
+  streakGoalData,
+} from "@/assets/data/data";
+import LoginButtonC from "./LoginButtonC";
 
 const BackArrowHeader = () => {
+  /*
+   * Task 1: Why are you learning ASL?
+   * Task 2: Commit to a goal
+   * Task 3: Set a Streak Goal
+   * Task 4: What is your name?
+   * Task 5: What is your email?
+   * Task 6: Set a password
+   * Task 7: Get Started!
+   */
+
+  interface Props {
+    data: [];
+    type: "words" | "images";
+    onSelect: () => void;
+  }
   //num pages that we gather info
-  const numTasks = 5;
+  const numTasks = 7;
 
   // begin at 1 progress
   const [progress, setProgress] = useState(1);
+
+  //button to continue begins hidden
+  const [showButton, setShowButton] = useState(false);
 
   //reduce progress by 1, if we are at no progress, return to the index page
   const handleBackArrow = () => {
@@ -31,18 +56,62 @@ const BackArrowHeader = () => {
   const renderSurveyContent = () => {
     switch (progress) {
       case 1:
-        return <Text>Contnet Number 1!</Text>;
+        return (
+          <>
+            <Text style={styles.taskTitle}>Why are you studying ASL?</Text>
+            <Table
+              data={whyStudyingData}
+              type="images"
+              onSelect={() => setShowButton(true)}
+            ></Table>
+          </>
+        );
       case 2:
         return (
           <>
-            <Text>Second Content!</Text>
-            <Button title="i am button"></Button>
+            <Text style={styles.taskTitle}>Commit to a daily goal</Text>
+            <Table
+              data={minuteGoalData}
+              type="words"
+              onSelect={() => setShowButton(true)}
+            ></Table>
+          </>
+        );
+      case 3:
+        return (
+          <>
+            <Text style={styles.taskTitle}>Set a streak goal</Text>
+            <Table
+              data={streakGoalData}
+              type="words"
+              onSelect={() => setShowButton(true)}
+            ></Table>
+          </>
+        );
+      case 4:
+        return (
+          <>
+            <Text>Collecting name</Text>
+          </>
+        );
+      case 5:
+        return (
+          <>
+            <Text>Collecting email</Text>
+          </>
+        );
+      case 6:
+        return (
+          <>
+            <Text>Collecting password</Text>
           </>
         );
     }
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={{ backgroundColor: COLORS.background, height: "100%" }}
+    >
       <View style={styles.header}>
         <Pressable onPress={handleBackArrow}>
           <Image
@@ -59,11 +128,19 @@ const BackArrowHeader = () => {
           ></View>
         </View>
       </View>
-      <Button
-        onPress={() => setProgress(progress + 1)}
-        title="See that bar climb ;)"
-      ></Button>
       {renderSurveyContent()}
+      {showButton && (
+        <View style={{ alignItems: "center" }}>
+          <LoginButtonC
+            text="Continue"
+            onPress={() => {
+              setProgress(progress + 1);
+              // Optionally set showButton to false if you want to hide the button after pressing
+              setShowButton(false); // Hide the button after pressing
+            }}
+          ></LoginButtonC>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -96,6 +173,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     zIndex: 99,
     borderRadius: 8,
+  },
+  taskTitle: {
+    fontSize: 32,
+    color: COLORS.gray,
+    marginLeft: 10,
+    marginTop: 10,
   },
 });
 export default BackArrowHeader;

@@ -1,6 +1,6 @@
 import { Text, View, Image, StyleSheet } from "react-native";
 import LoginButtonC from "@/components/LoginButtonC";
-import COLORS from "../theme";
+import COLORS from "../assets/data/theme";
 import { useRouter } from "expo-router";
 
 const index = () => {
