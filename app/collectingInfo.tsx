@@ -10,7 +10,7 @@ import {
   Keyboard,
 } from "react-native";
 import COLORS from "@/assets/data/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, router } from "expo-router";
 import Table from "../components/Table";
 import {
@@ -63,7 +63,7 @@ const collectingInfo = () => {
   //reduce progress by 1, if we are at no progress, return to the index page
   const handleBackArrow = () => {
     console.log("back arrow clicked");
-    setShowButton(true);
+    setShowButton(false);
     const new_progress = progress - 1;
     if (new_progress <= 0) {
       router.push("/");
@@ -71,6 +71,29 @@ const collectingInfo = () => {
     }
     setProgress(new_progress);
   };
+  //determine if the continue button should be shown or not
+  useEffect(() => {
+    // Determine if button should be shown based on current progress
+    switch (progress) {
+      case 1:
+      case 2:
+      case 3:
+        // These are handled by the Table component's onSelect
+        break;
+      case 4:
+        setShowButton(validateAge(age));
+        break;
+      case 5:
+        setShowButton(firstName !== "" && lastName !== "");
+        break;
+      case 6:
+        setShowButton(validateEmail(email));
+        break;
+      case 7:
+        setShowButton(validatePassword(password));
+        break;
+    }
+  }, [progress, age, firstName, lastName, email, password]);
   const renderSurveyContent = () => {
     switch (progress) {
       case 1:
