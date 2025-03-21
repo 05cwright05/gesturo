@@ -45,6 +45,15 @@ const collectingInfo = () => {
   //button to continue begins hidden
   const [showButton, setShowButton] = useState(false);
 
+  //remember why learning
+  const [whyId, setWhyId] = useState("");
+
+  //remeber minute goal
+  const [minuteGoalId, setMinuteGoalId] = useState("");
+
+  //rember streak goal
+  const [streakGoalId, setStreakGoalId] = useState("");
+
   //remember age
   const [age, setAge] = useState("");
 
@@ -73,12 +82,18 @@ const collectingInfo = () => {
   };
   //determine if the continue button should be shown or not
   useEffect(() => {
-    // Determine if button should be shown based on current progress
     switch (progress) {
       case 1:
+        //why learning
+        setShowButton(whyId != "");
+        break;
       case 2:
+        //minutes per day
+        setShowButton(minuteGoalId != "");
+        break;
       case 3:
-        // These are handled by the Table component's onSelect
+        // streak goal
+        setShowButton(streakGoalId != "");
         break;
       case 4:
         setShowButton(validateAge(age));
@@ -103,6 +118,8 @@ const collectingInfo = () => {
             <Table
               data={whyStudyingData}
               type="images"
+              selected={whyId}
+              setter={setWhyId}
               onSelect={() => setShowButton(true)}
             ></Table>
           </>
@@ -114,6 +131,8 @@ const collectingInfo = () => {
             <Table
               data={minuteGoalData}
               type="words"
+              selected={minuteGoalId}
+              setter={setMinuteGoalId}
               onSelect={() => setShowButton(true)}
             ></Table>
           </>
@@ -125,6 +144,8 @@ const collectingInfo = () => {
             <Table
               data={streakGoalData}
               type="words"
+              selected={streakGoalId}
+              setter={setStreakGoalId}
               onSelect={() => setShowButton(true)}
             ></Table>
           </>

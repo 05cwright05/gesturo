@@ -19,19 +19,22 @@ interface Props {
   data: Item[];
   type: "words" | "images";
   onSelect: (id: string) => void;
+  setter: (id: string) => void;
+  selected: string;
 }
 
-const Table = ({ data, type, onSelect }: Props) => {
+const Table = ({ data, type, onSelect, setter, selected }: Props) => {
   const [selectedId, setSelectedId] = useState("");
 
   const manageSelect = (id: string) => {
     setSelectedId(id);
     onSelect(id);
+    setter(id);
   };
 
   // Reset selectedId whenever data changes
   useEffect(() => {
-    setSelectedId("");
+    setSelectedId(selected);
   }, [data]);
 
   return (
