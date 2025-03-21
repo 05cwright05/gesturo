@@ -280,7 +280,7 @@ const collectingInfo = () => {
       style={{ backgroundColor: COLORS.background, height: "100%" }}
     >
       <View style={styles.header}>
-        <Pressable onPress={handleBackArrow}>
+        <Pressable onPress={handleBackArrow} style={styles.backButton}>
           <Image
             source={require("../assets/images/backArrow.png")}
             style={styles.arrow}
@@ -337,13 +337,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     overflow: "hidden",
   },
-  arrow: {
-    marginLeft: 10,
+  backButton: {
+    padding: 10, // Adds padding around the image
+    justifyContent: "center",
+    alignItems: "center",
+    minWidth: 44,
+    minHeight: 44, // Ensures minimum touch area
+    marginLeft: 0,
   },
+  arrow: { marginRight: 10 },
   progressBar: {
     backgroundColor: COLORS.darkGray,
     height: 12,
-    marginLeft: 20,
     flex: 1,
     borderRadius: 8,
     overflow: "hidden",
