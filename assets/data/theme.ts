@@ -3,7 +3,8 @@ export const COLORS = {
     background: "#FFFDF3",
     white: "white",
     gray: "gray",
-    darkGray: "darkgray"
+    darkGray: "darkgray",
+    lightGray: "lightgray"
 }
 
 export default COLORS;
